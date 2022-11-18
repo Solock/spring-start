@@ -2,20 +2,13 @@ package com.adeo.dp4p.sales.sofianetest.integration;
 
 import com.adeo.dp4p.sales.sofianetest.repository.OperatorInMemoryRepository;
 import com.adeo.dp4p.sales.sofianetest.repository.ResultOperatorEntity;
-import org.assertj.core.internal.bytebuddy.matcher.ElementMatcher;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashMap;
 
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
@@ -66,7 +59,7 @@ public class OperatorRepositoryTest {
     }
 
     @Test
-    void test_save_with_wrong_value_date() throws Exception{
+    void test_save_with_wrong_value_date() throws Exception {
         //given
         ResultOperatorEntity resultOperatorEntity = new ResultOperatorEntity();
         resultOperatorEntity.setResult(BigDecimal.valueOf(6));
@@ -77,7 +70,6 @@ public class OperatorRepositoryTest {
         operatorInMemoryRepository.save(resultOperatorEntity.getResult(), resultOperatorEntity.getDate(), resultOperatorEntity.getOperator());
         repository.put(0L, resultOperatorEntity);
         //then
-        //Assertions.assertEquals({0=com.adeo.dp4p.sales.sofianetest.repository.ResultOperatorEntity@16cf7fd0}, repository);
     }
 
     @Test
