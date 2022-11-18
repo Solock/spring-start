@@ -61,7 +61,7 @@ public class OperatorRepositoryTest {
         operatorInMemoryRepository.save(resultOperatorEntity.getResult(), resultOperatorEntity.getDate(), resultOperatorEntity.getOperator());
         repository.put(0L, resultOperatorEntity);
         //then
-        assertEquals("Valeur(s) null(s), inserez des valeurs corrects.", Exception.getMessage());
+        assertEquals("Valeur(s) null(s), inserez des valeurs corrects.", new Exception());
         //Assertions.assertEquals({0=com.adeo.dp4p.sales.sofianetest.repository.ResultOperatorEntity@16cf7fd0}, repository);
     }
 
