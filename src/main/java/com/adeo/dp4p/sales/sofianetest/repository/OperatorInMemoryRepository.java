@@ -1,5 +1,6 @@
 package com.adeo.dp4p.sales.sofianetest.repository;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -20,5 +21,9 @@ public class OperatorInMemoryRepository {
 
         repository.put(count+1, resultOperatorEntity);
 
+        if (result.equals(null) || date.equals(null) || operator.equals(null))  {
+             ResponseEntity.badRequest()
+                    .body("Renseignez les champs avec les bonnes valeurs.");
+        }
     }
 }
