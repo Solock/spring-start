@@ -53,7 +53,7 @@ public class OperatorRepositoryTest {
     void test_save_with_wrong_value_result() throws Exception{
         //given
         ResultOperatorEntity resultOperatorEntity = new ResultOperatorEntity();
-        resultOperatorEntity.setResult(BigDecimal.valueOf(6));
+        resultOperatorEntity.setResult(null);
         resultOperatorEntity.setDate(dateTest);
         resultOperatorEntity.setOperator("+");
 
@@ -61,6 +61,7 @@ public class OperatorRepositoryTest {
         operatorInMemoryRepository.save(resultOperatorEntity.getResult(), resultOperatorEntity.getDate(), resultOperatorEntity.getOperator());
         repository.put(0L, resultOperatorEntity);
         //then
+        assertEquals("Valeur(s) null(s), inserez des valeurs corrects.", Exception.getMessage());
         //Assertions.assertEquals({0=com.adeo.dp4p.sales.sofianetest.repository.ResultOperatorEntity@16cf7fd0}, repository);
     }
 
