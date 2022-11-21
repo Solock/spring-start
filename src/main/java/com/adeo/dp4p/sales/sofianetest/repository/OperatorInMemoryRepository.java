@@ -15,7 +15,7 @@ public class OperatorInMemoryRepository {
     private static Long count = 0L;
 
     public static void save(BigDecimal result, Date date, String operator) throws Exception {
-        if (result.equals(null) || date.equals(null) || operator.equals(null))  {
+        if (result == null || date == null || operator == null)  {
             throw new ObjectValueNullException("Veuillez saisir des valeurs non nulles");
         }
         else {
