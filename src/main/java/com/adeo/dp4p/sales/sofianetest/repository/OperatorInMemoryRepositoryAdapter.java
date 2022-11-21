@@ -1,7 +1,6 @@
 package com.adeo.dp4p.sales.sofianetest.repository;
 
 import com.adeo.dp4p.sales.sofianetest.exception.ObjectValueNullException;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
