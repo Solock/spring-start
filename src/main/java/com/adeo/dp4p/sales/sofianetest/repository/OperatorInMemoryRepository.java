@@ -1,5 +1,6 @@
 package com.adeo.dp4p.sales.sofianetest.repository;
 
+import com.adeo.dp4p.sales.sofianetest.exception.ObjectValueNullException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public class OperatorInMemoryRepository {
 
     public static void save(BigDecimal result, Date date, String operator) throws Exception {
         if (result.equals(null) || date.equals(null) || operator.equals(null))  {
-            throw new Exception("Valeur(s) null(s), inserez des valeurs corrects.");
+            throw new ObjectValueNullException("Veuillez saisir des valeurs non nulles");
         }
         else {
             ResultOperatorEntity resultOperatorEntity = new ResultOperatorEntity();
