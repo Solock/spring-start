@@ -1,4 +1,4 @@
-package com.adeo.dp4p.sales.sofianetest.integration;
+package com.adeo.dp4p.sales.sofianetest.integration.controller;
 
 
 import org.junit.jupiter.api.Test;

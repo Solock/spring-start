@@ -1,4 +1,4 @@
-package com.adeo.dp4p.sales.sofianetest.integration;
+package com.adeo.dp4p.sales.sofianetest.integration.service;
 
 import com.adeo.dp4p.sales.sofianetest.service.SumService;
 import org.junit.jupiter.api.Test;

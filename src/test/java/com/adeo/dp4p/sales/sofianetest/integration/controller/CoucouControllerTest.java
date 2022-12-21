@@ -1,4 +1,4 @@
-package com.adeo.dp4p.sales.sofianetest.integration;
+package com.adeo.dp4p.sales.sofianetest.integration.controller;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -15,28 +17,30 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class SumControllerTest {
+public class CoucouControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void test_without_parameters() throws Exception{
+    public void test_work() throws Exception{
         //when
-        MvcResult resultOut = this.mockMvc.perform(get("/sum")).andReturn();
-
-        //then
-        assertEquals(HttpStatus.BAD_REQUEST.value(), resultOut.getResponse().getStatus());
-    }
-
-    @Test
-    public void test_with_parameters() throws Exception{
-        //when
-        MvcResult result = this.mockMvc.perform(get("/sum?value1=2&value2=3")).andReturn();
+        MvcResult result = this.mockMvc.perform(get("/message")).andReturn();
 
         //then
         assertEquals(HttpStatus.OK.value(),result.getResponse().getStatus());
-        assertEquals("5",result.getResponse().getContentAsString());
+        assertEquals("coucou",result.getResponse().getContentAsString());
+
     }
+
+    @Test
+    public void test_with_bad_path() throws Exception{
+        //when
+        MvcResult badResult = this.mockMvc.perform(get("/messssage")).andReturn();
+
+        //then
+        assertEquals(HttpStatus.NOT_FOUND.value(), badResult.getResponse().getStatus());
+    }
+
 
 }
