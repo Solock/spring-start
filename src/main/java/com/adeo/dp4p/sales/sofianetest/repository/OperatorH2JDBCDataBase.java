@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class OperatorH2JDBCDataBase implements IOperatorDatabase {
+public class OperatorH2JDBCDataBase {
 
     private final NamedParameterJdbcOperations jdbcOperations;
 
@@ -27,7 +27,6 @@ public class OperatorH2JDBCDataBase implements IOperatorDatabase {
                     + "operator_result) "
                     + "VALUES (operator_id,operator_result,operator_date,operator_operator)";
 
-    @Override
     public void saveInDataBase(BigDecimal operator_result, Date operator_date, String operator_operator)
             throws ObjectValueNullException {
         if (operator_result == null || operator_date == null || operator_operator == null)  {

@@ -1,14 +1,9 @@
 package com.adeo.dp4p.sales.sofianetest.repository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import com.adeo.dp4p.sales.sofianetest.exception.ObjectValueNullException;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
-public interface IOperatorDatabase extends JpaRepository<ResultOperatorEntity, Long> {
-
-    void saveInDataBase(BigDecimal operator_result, Date operator_date, String operator_operator)
-            throws ObjectValueNullException;
+@Repository
+public interface IOperatorDatabase extends CrudRepository<ResultOperatorEntity, Long> {
 
 }
