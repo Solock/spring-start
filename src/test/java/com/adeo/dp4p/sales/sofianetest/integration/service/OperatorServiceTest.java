@@ -1,21 +1,15 @@
 package com.adeo.dp4p.sales.sofianetest.integration.service;
 
-import com.adeo.dp4p.sales.sofianetest.exception.ObjectValueNullException;
-import com.adeo.dp4p.sales.sofianetest.repository.OperatorInMemoryRepository;
 import com.adeo.dp4p.sales.sofianetest.service.OperatorService;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class OperatorServiceTest {

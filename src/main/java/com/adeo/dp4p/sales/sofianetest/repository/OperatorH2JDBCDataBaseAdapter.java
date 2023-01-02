@@ -2,6 +2,7 @@ package com.adeo.dp4p.sales.sofianetest.repository;
 
 import com.adeo.dp4p.sales.sofianetest.exception.ObjectValueNullException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.stereotype.Repository;
 
@@ -10,25 +11,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+@ConditionalOnProperty(name = "config.database.type", havingValue = "h2")
 @Repository
-public class OperatorH2JDBCDataBase {
+public class OperatorH2JDBCDataBaseAdapter implements IOperatorDatabasePort {
 
     private final NamedParameterJdbcOperations jdbcOperations;
 
     @Autowired
-    public OperatorH2JDBCDataBase(final NamedParameterJdbcOperations jdbcOperations) {
+    public OperatorH2JDBCDataBaseAdapter(final NamedParameterJdbcOperations jdbcOperations) {
         this.jdbcOperations = jdbcOperations;
     }
 
-    private  String CREATE_VALUE_OPERATOR =
-            "INSERT INTO resutl_operator_entity (operator_id, "
-                    + "operator_date,"
-                    + "operator_operator,"
-                    + "operator_result) "
-                    + "VALUES (operator_id,operator_result,operator_date,operator_operator)";
+    public static String CREATE_VALUE_OPERATOR =
+            "INSERT INTO resutl_operator_entity (operator_id, operator_date, operator_operator, operator_result) "
+                    + "VALUES (:operator_id, :operator_date, :operator_operator, :operator_result)";
 
-    public void saveInDataBase(BigDecimal operator_result, Date operator_date, String operator_operator)
-            throws ObjectValueNullException {
+    @Override
+    public void saveInDataBase(BigDecimal operator_result, Date operator_date, String operator_operator) throws ObjectValueNullException {
         if (operator_result == null || operator_date == null || operator_operator == null)  {
             throw new ObjectValueNullException("Veuillez saisir des valeurs non nulles");
         }
@@ -39,9 +38,8 @@ public class OperatorH2JDBCDataBase {
             map.put("operator_result", operator_result);
             map.put("operator_operator", operator_operator);
 
-            return ;
+            jdbcOperations.update(CREATE_VALUE_OPERATOR, map);
 
-            //jdbcOperations.query(CREATE_VALUE_OPERATOR, map);
         }
 
     }

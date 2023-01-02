@@ -1,35 +1,57 @@
 package com.adeo.dp4p.sales.sofianetest.integration.repository;
 
-import com.adeo.dp4p.sales.sofianetest.repository.OperatorH2JDBCDataBase;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyMap;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import com.adeo.dp4p.sales.sofianetest.exception.ObjectValueNullException;
+import com.adeo.dp4p.sales.sofianetest.repository.OperatorH2JDBCDataBaseAdapter;
+import org.aspectj.lang.annotation.Before;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 
-@SpringBootTest
 public class OperatorH2JDBCDataBaseTest {
-    @Autowired
-    private OperatorH2JDBCDataBase operatorH2JDBCDataBase;
 
-    @Test
-    void test_save_with_right_parameters() throws Exception{
-        //given
-        BigDecimal result = BigDecimal.valueOf(6);
-        Date dateTest = new Date();
-        String operator = "+";
+    @Mock
+    private NamedParameterJdbcOperations mockJdbcOperations;
 
-        //when
-        operatorH2JDBCDataBase.saveInDataBase(result, dateTest, operator);
+    @Captor
+    private ArgumentCaptor<Map<String, Object>> mapCaptor;
 
-        //then
-        //assertEquals(1, operatorH2JDBCDataBase.findAll().size());
+    private OperatorH2JDBCDataBaseAdapter operatorH2JDBCDataBase;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        operatorH2JDBCDataBase = new OperatorH2JDBCDataBaseAdapter(mockJdbcOperations);
     }
 
+    @Test
+    public void testSaveInDataBase() throws ObjectValueNullException {
+        BigDecimal result = new BigDecimal(42);
+        Date date = new Date();
+        String operator = "addition";
+
+        when(mockJdbcOperations.update(anyString(), anyMap())).thenReturn(1);
 
 
+        operatorH2JDBCDataBase.saveInDataBase(result, date, operator);
 
+        verify(mockJdbcOperations).update(OperatorH2JDBCDataBaseAdapter.CREATE_VALUE_OPERATOR, mapCaptor.capture());
+        Map<String, Object> capturedMap = mapCaptor.getValue();
+        assertEquals(result, capturedMap.get("operator_result"));
+        assertEquals(date, capturedMap.get("operator_date"));
+        assertEquals(operator, capturedMap.get("operator_operator"));
+
+    }
 }
